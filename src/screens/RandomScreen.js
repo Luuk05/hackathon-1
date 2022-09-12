@@ -8,7 +8,7 @@ const RandomScreen = ({ navigation }) => {
       <Button
         title="Random"
         onPress={() => {
-          navigation.navigate("Home");
+          navigation.navigate("HomeScreen");
         }}
       ></Button>
     </View>

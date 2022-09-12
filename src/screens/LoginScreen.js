@@ -6,6 +6,8 @@ const LoginScreen = () => {
   let [userName, setUserName] = useState("");
   let [password, setPassword] = useState("");
 
+  function login() {}
+
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />

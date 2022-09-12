@@ -15,12 +15,12 @@ const StackNavigator = () => {
     <Stack.Navigator>
       {user ? (
         <>
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="RandomScreen" component={RandomScreen} />
         </>
       ) : (
         <>
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
         </>
       )}
     </Stack.Navigator>
