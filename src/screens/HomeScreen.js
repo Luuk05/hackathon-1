@@ -1,6 +1,7 @@
 import { View, Text, Button } from "react-native";
 import React, { useState, useEffect } from "react";
 import { firebase } from "../../firebase.js";
+import NavBar from "../components/Navbar.js";
 
 const HomeScreen = ({ navigation }) => {
   const [courses, setCourses] = useState([]);
@@ -42,13 +43,14 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View>
+      <NavBar navigation={navigation} />
       <View
         style={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
           flexWrap: "wrap",
-          paddingTop: 40,
+          paddingTop: 20,
         }}
       >
         {courses.map((course, index) => (
@@ -91,9 +93,9 @@ const HomeScreen = ({ navigation }) => {
       </View>
 
       <Button
-        title="Random"
+        title="Mijn profiel"
         onPress={(doc) => {
-          navigation.navigate("RandomScreen");
+          navigation.navigate("QRScreen");
         }}
       ></Button>
     </View>
