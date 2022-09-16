@@ -1,11 +1,36 @@
 import { View, Text, Button } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../components/Navbar";
 import QRCode from "react-native-qrcode-svg";
 import { firebase } from "../../firebase.js";
+import useAuth from "../hooks/useAuth";
 
 const QRScreen = ({ navigation }) => {
   const userRef = firebase.firestore().collection("users");
+  const { user } = useAuth();
+  let [hasActiveSubscription, setHasActiveSubscription] = useState(null);
+
+  userRef
+    .doc(user.document)
+    .get()
+    .then((docRef) => {
+      // console.log(docRef.data());
+      if (docRef.data().hasActiveSubscription) {
+        setHasActiveSubscription(true);
+      } else {
+        setHasActiveSubscription(false);
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+  function schrijfUit() {
+    userRef.doc(user.document).update({
+      hasActiveSubscription: false,
+    });
+    setHasActiveSubscription(false);
+  }
 
   return (
     <View>
@@ -30,7 +55,13 @@ const QRScreen = ({ navigation }) => {
           alignItems: "center",
         }}
       >
-        <QRCode size={250} value="https://google.com" />
+        {hasActiveSubscription ? (
+          <QRCode size={250} value="https://google.com" />
+        ) : (
+          <Text style={{ textAlign: "center", maxWidth: 150 }}>
+            Je hebt geen actief abonnement meer
+          </Text>
+        )}
       </View>
       <View
         style={{
@@ -54,7 +85,9 @@ const QRScreen = ({ navigation }) => {
           textAlign: "center",
           marginTop: 140,
         }}
-        onPress={() => {}}
+        onPress={() => {
+          schrijfUit();
+        }}
       >
         Annuleer abonnement
       </Text>

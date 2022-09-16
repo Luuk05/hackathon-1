@@ -1,10 +1,22 @@
 import { StyleSheet, Text, View, TextInput, Pressable } from "react-native";
 import { useState } from "react";
 import { StatusBar } from "expo-status-bar";
+import useAuth from "../hooks/useAuth";
 
 const LoginScreen = () => {
   let [userName, setUserName] = useState("");
   let [password, setPassword] = useState("");
+  const { setUser } = useAuth();
+
+  function login() {
+    // psuedo code om later de code te verbeteren
+    // if (username == firebase.any.user.name && password == firebase.any.user.password) {
+    //  allowLogin(true, {firebase.user});
+    // }
+    setUser({
+      document: "nNK3hmHTSIlJx70aHIkO",
+    });
+  }
 
   return (
     <View style={styles.container}>
@@ -31,7 +43,7 @@ const LoginScreen = () => {
         <Pressable
           style={styles.loginButton}
           onPress={() => {
-            // console.log("logging in..");
+            login();
           }}
         >
           <Text style={styles.loginButtonText}>Log in</Text>
