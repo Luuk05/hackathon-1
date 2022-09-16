@@ -1,15 +1,14 @@
 import { View, Text, Button } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { firebase } from "../../firebase.js";
 import NavBar from "../components/Navbar.js";
 
 const HomeScreen = ({ navigation }) => {
   const [courses, setCourses] = useState([]);
-  const [addUserToCourse, setAddUserToCourse] = useState("");
   const courseRef = firebase.firestore().collection("courses");
 
   useEffect(() => {
-    async function getData() {
+    async function getDataCourses() {
       courseRef.onSnapshot((querySnapshot) => {
         const allCourses = [];
         querySnapshot.forEach((doc) => {
@@ -24,7 +23,18 @@ const HomeScreen = ({ navigation }) => {
       });
     }
 
-    getData();
+    getDataCourses();
+
+    async function getUpComingCourseUsers() {
+      // const test = await courseRef
+      //   .orderByChild("date")
+      //   .get()
+      //   .catch((err) => {
+      //     console.log("err");
+      //   });
+      // console.log(test);
+    }
+    getUpComingCourseUsers();
   }, []);
 
   function inschrijven(documentId) {
@@ -70,6 +80,8 @@ const HomeScreen = ({ navigation }) => {
               borderRadius: 20,
               display: "flex",
               columnGap: "30px",
+              // borderColor: "#50C878",
+              // borderWidth: 2,
             }}
           >
             <Text style={{ fontSize: 20, marginBottom: 2 }}>{course.name}</Text>
@@ -87,13 +99,29 @@ const HomeScreen = ({ navigation }) => {
           </View>
         ))}
       </View>
-
-      <Button
-        title="Mijn profiel"
-        onPress={(doc) => {
-          navigation.navigate("QRScreen");
+      <Text
+        style={{
+          fontWeight: "600",
+          fontSize: 17,
+          textAlign: "center",
+          marginTop: 40,
         }}
-      ></Button>
+      >
+        Inschrijvingen komende cursus:
+      </Text>
+      <View
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        {/* Moet in een toekomistige versie uit een db worden gehaald */}
+        <Text>Piet</Text>
+        <Text>Willem</Text>
+        <Text>Anne</Text>
+        <Text>Daan</Text>
+      </View>
     </View>
   );
 };
