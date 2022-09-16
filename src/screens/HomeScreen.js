@@ -1,5 +1,5 @@
-import { View, Text, Button } from "react-native";
-import React, { useState, useEffect, useRef } from "react";
+import { View, Text } from "react-native";
+import React, { useState, useEffect } from "react";
 import { firebase } from "../../firebase.js";
 import NavBar from "../components/Navbar.js";
 
@@ -26,6 +26,7 @@ const HomeScreen = ({ navigation }) => {
     getDataCourses();
 
     async function getUpComingCourseUsers() {
+      // Nog niet af aangezien ik geen tijd meer had
       // const test = await courseRef
       //   .orderByChild("date")
       //   .get()
@@ -80,8 +81,6 @@ const HomeScreen = ({ navigation }) => {
               borderRadius: 20,
               display: "flex",
               columnGap: "30px",
-              // borderColor: "#50C878",
-              // borderWidth: 2,
             }}
           >
             <Text style={{ fontSize: 20, marginBottom: 2 }}>{course.name}</Text>
